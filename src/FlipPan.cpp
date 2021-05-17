@@ -71,11 +71,7 @@ void FlipPan::process(const ProcessArgs &args)
     }
 }
 
-struct CKSSRot : SvgSwitch {
-	CKSSRot() {
-		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/CKSS_rot_0.svg")));
-		addFrame(APP->window->loadSvg(asset::plugin(pluginInstance, "res/CKSS_rot_1.svg")));
-	}
+struct CKSSRot : CKSSH {
 };
 
 

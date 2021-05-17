@@ -11,7 +11,6 @@ void init(rack::Plugin *p) {
 	p->addModel(modelAnalogToDigital);
 	p->addModel(modelASR);
 	p->addModel(modelBitshift);
-	p->addModel(modelBlankPanel);
 	p->addModel(modelBoolean3);
 	p->addModel(modelComparator);
 	p->addModel(modelContrast);
@@ -29,6 +28,7 @@ void init(rack::Plugin *p) {
 	p->addModel(modelRotator);
 	p->addModel(modelScanner);
 	p->addModel(modelWaveshape);
+	p->addModel(modelBlankPanel);
 	// Any other pluginInstance initialization may go here.
 	// As an alternative, consider lazy-loading assets and lookup tables within this file or the individual module files to reduce startup times of Rack.
 }

@@ -70,41 +70,12 @@ struct BlankPanel : Module
 
 struct BlankPanelWidget : ModuleWidget
 {
-    SvgPanel *panel1;
-	SvgPanel *panel2;
-    SvgPanel *panel3;
-	SvgPanel *panel4;
-    SvgPanel *panel5;
+	int curPanel = -1;
 
     BlankPanelWidget(BlankPanel *module)
 	{
 		setModule(module);
 		box.size = Vec(6 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT);
-
-	    panel1 = new SvgPanel();
-	    panel1->box.size = box.size;
-	    panel1->setBackground(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Blanks/BlankPanel3.svg")));
-	    addChild(panel1);
-
-	    panel2 = new SvgPanel();
-	    panel2->box.size = box.size;
-	    panel2->setBackground(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Blanks/BlankPanel7.svg")));
-	    addChild(panel2);
-
-	    panel3 = new SvgPanel();
-	    panel3->box.size = box.size;
-	    panel3->setBackground(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Blanks/BlankPanel2.svg")));
-	    addChild(panel3);
-
-	    panel4 = new SvgPanel();
-	    panel4->box.size = box.size;
-	    panel4->setBackground(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Blanks/BlankPanel8.svg")));
-	    addChild(panel4);
-
-	    panel5 = new SvgPanel();
-	    panel5->box.size = box.size;
-	    panel5->setBackground(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Blanks/BlankPanel1.svg")));
-	    addChild(panel5);
 
 		addChild(createWidget<ScrewSilver>(Vec(15, 0)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 30, 0)));
@@ -116,13 +87,20 @@ struct BlankPanelWidget : ModuleWidget
 	{
 		auto blank = dynamic_cast<BlankPanel*>(module);
 		
-		if(blank)
+		if(blank && curPanel != blank->panel)
 		{
-			panel1->visible = (blank->panel == 0);
-			panel2->visible = (blank->panel == 1);
-		    panel3->visible = (blank->panel == 2);
-			panel4->visible = (blank->panel == 3);
-		    panel5->visible = (blank->panel == 4);
+			curPanel = blank->panel;
+
+			if (curPanel == 1)
+				setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Blanks/BlankPanel7.svg")));
+			else if (curPanel == 2)
+				setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Blanks/BlankPanel2.svg")));
+			else if (curPanel == 3)
+				setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Blanks/BlankPanel8.svg")));
+			else if (curPanel == 4)
+				setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Blanks/BlankPanel1.svg")));
+			else
+				setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Blanks/BlankPanel3.svg")));
 		}
 
 		ModuleWidget::step();
